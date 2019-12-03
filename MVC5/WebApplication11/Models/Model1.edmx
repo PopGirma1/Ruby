@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mvcModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbl_department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dep_name" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="emp_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="emp_dob" Type="date" Nullable="false" />
+          <Property Name="emp_hiredate" Type="date" Nullable="false" />
+          <Property Name="emp_fk_id" Type="int" />
+          <Property Name="emp_img" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__tbl_emplo__emp_f__72C60C4A">
+          <End Role="tbl_department" Type="Self.tbl_department" Multiplicity="0..1" />
+          <End Role="tbl_employee" Type="Self.tbl_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="tbl_employee">
+              <PropertyRef Name="emp_fk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvcModelStoreContainer">
+          <EntitySet Name="tbl_department" EntityType="Self.tbl_department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tbl_emplo__emp_f__72C60C4A" Association="Self.FK__tbl_emplo__emp_f__72C60C4A">
+            <End Role="tbl_department" EntitySet="tbl_department" />
+            <End Role="tbl_employee" EntitySet="tbl_employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mvcModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbl_department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dep_name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_employee" Relationship="Self.FK__tbl_emplo__emp_f__72C60C4A" FromRole="tbl_department" ToRole="tbl_employee" />
+        </EntityType>
+        <EntityType Name="tbl_employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="emp_name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="emp_dob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="emp_hiredate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="emp_fk_id" Type="Int32" />
+          <Property Name="emp_img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_department" Relationship="Self.FK__tbl_emplo__emp_f__72C60C4A" FromRole="tbl_employee" ToRole="tbl_department" />
+        </EntityType>
+        <Association Name="FK__tbl_emplo__emp_f__72C60C4A">
+          <End Role="tbl_department" Type="Self.tbl_department" Multiplicity="0..1" />
+          <End Role="tbl_employee" Type="Self.tbl_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="tbl_employee">
+              <PropertyRef Name="emp_fk_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mvcEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbl_department" EntityType="Self.tbl_department" />
+          <EntitySet Name="tbl_employee" EntityType="Self.tbl_employee" />
+          <AssociationSet Name="FK__tbl_emplo__emp_f__72C60C4A" Association="Self.FK__tbl_emplo__emp_f__72C60C4A">
+            <End Role="tbl_department" EntitySet="tbl_department" />
+            <End Role="tbl_employee" EntitySet="tbl_employee" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mvcModelStoreContainer" CdmEntityContainer="mvcEntities">
+          <EntitySetMapping Name="tbl_department">
+            <EntityTypeMapping TypeName="mvcModel.tbl_department">
+              <MappingFragment StoreEntitySet="tbl_department">
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_employee">
+            <EntityTypeMapping TypeName="mvcModel.tbl_employee">
+              <MappingFragment StoreEntitySet="tbl_employee">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="emp_name" ColumnName="emp_name" />
+                <ScalarProperty Name="emp_dob" ColumnName="emp_dob" />
+                <ScalarProperty Name="emp_hiredate" ColumnName="emp_hiredate" />
+                <ScalarProperty Name="emp_fk_id" ColumnName="emp_fk_id" />
+                <ScalarProperty Name="emp_img" ColumnName="emp_img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
