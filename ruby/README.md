@@ -1,7 +1,8 @@
-== Rails CRUD training app
+Name:Girmay Tadese
 
-This app is used to walk new developers through the basic Rails plumbing, MVC concepts, and flow.
+Section:02
 
-== Setup
+ID :ATR /8714 /09
+
 
 Copy the `config/database.yml.example` to `config/database.yml`
